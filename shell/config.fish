@@ -9,6 +9,7 @@ alias jctl='journalctl -p 3 -xb'
 alias update='sudo pacman -Syyu'
 alias upgrade='sudo pacman -Syyu'
 alias nf='nvim ~/.config/fish/config.fish'
+alias nstatus='sudo nvim /etc/i3status.conf'
 alias gf='gedit ~/.config/fish/config.fish'
 alias nb='nvim ~/.bashrc'
 alias gb='gedit ~/.bashrc'
@@ -38,7 +39,7 @@ alias d_gui='docker run -it --rm --env="DISPLAY" --volume="/tmp/.X11-unix:/tmp/.
 alias d_il='docker image list'
 alias d_ps='docker ps -a'
 alias d_prune='docker container prune'
-alias d_rm='docker rmi $(docker images -f "dangling=true" -q)'
+#alias d_rm='docker rmi $(docker images -f "dangling=true" -q)'
 
 # ---------------
 
@@ -48,7 +49,7 @@ set SSH_AUTH_SOCK "$XDG_RUNTIME_DIR/ssh-agent.socket"
 set bashrc $HOME/.bashrc
 set -gx CC clang
 set -gx CXX clang++
-set -gx MAKEFLAGS -j$(nproc --all)
+set -gx MAKEFLAGS -j(nproc)
 # ---------------
 
 # --- Functions ---
@@ -80,17 +81,6 @@ function ros_init
   set -gx ROS_DOMAIN_ID 42
   bass source /opt/ros2/galactic/setup.bash
 end
-
-function sound_headphones
-	set headphones_name "$(pactl list | grep -E 'Name: .+output.+usb-Razer.+analog-stereo$' | cut -d ' ' -f 2)"
-	pactl set-default-sink "$headphones_name"
-end
-
-function sound_speaker
-	set speaker_name "$(pactl list | grep -E 'Name: .+output.+hdmi-stereo$' | cut -d ' ' -f 2)"
-	pactl set-default-sink "$speaker_name"
-end
-
 # -----------------
 
 # --- Fish settings ---
