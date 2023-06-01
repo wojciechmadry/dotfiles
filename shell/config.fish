@@ -81,6 +81,17 @@ function ros_init
   set -gx ROS_DOMAIN_ID 42
   bass source /opt/ros2/galactic/setup.bash
 end
+
+function sound_headphones
+	set headphones_name "$(pactl list | grep -E 'Name: .+output.+usb-Razer.+analog-stereo$' | cut -d ' ' -f 2)"
+	pactl set-default-sink "$headphones_name"
+end
+
+function sound_speaker
+	set speaker_name "$(pactl list | grep -E 'Name: .+output.+hdmi-stereo$' | cut -d ' ' -f 2)"
+	pactl set-default-sink "$speaker_name"
+end
+
 # -----------------
 
 # --- Fish settings ---

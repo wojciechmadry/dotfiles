@@ -23,7 +23,6 @@ export CXX=clang++
 
 # Add additional path in PATH
 set PATH "$PATH:/home/"$USER"/.local/bin"
-set PATH "$PATH:/home/"$USER"/.cargo/bin"
 
 # Run fish shell
 fish
