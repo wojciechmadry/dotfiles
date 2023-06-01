@@ -17,3 +17,6 @@ i3status or i3status-rust (bar)
 ## Fish and bashrc
 
 ## NeoVim
+
+## Rofi
+
