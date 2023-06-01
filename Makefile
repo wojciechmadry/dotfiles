@@ -14,7 +14,7 @@ install:
 	# NeoVim
 	cp nvim/init.lua ~/.config/nvim/
 	# Alacritty
-	cp alacritty/alacritty.yaml ~/.config/alacritty/
+	cp alacritty/alacritty.yml ~/.config/alacritty/
 	# Pico
 	cp picom/config ~/.config/picom/
 	# Rofi
@@ -33,7 +33,7 @@ backup:
 	# NeoVim
 	cp ~/.config/nvim/init.lua nvim/
 	# Alacritty
-	cp ~/.config/alacritty/alacritty.yaml alacritty/
+	cp ~/.config/alacritty/alacritty.yml alacritty/
 	# Pico
 	cp ~/.config/picom/config picom/
 	# Rofi
