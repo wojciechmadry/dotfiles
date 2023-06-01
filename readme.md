@@ -20,3 +20,5 @@ i3status or i3status-rust (bar)
 
 ## Rofi
 
+## Git ssh
+
