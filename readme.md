@@ -1,5 +1,9 @@
 # My linux configuration files
 
+`make install` - install config
+
+`make backup` - backup config
+
 ## Alacritty
 
 [Font](https://www.nerdfonts.com/font-downloads) - JetBrains Mono Nerd Font
