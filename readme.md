@@ -10,4 +10,6 @@
 
 i3status or i3status-rust (bar)
 
+## Picom
+
 
