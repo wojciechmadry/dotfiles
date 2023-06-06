@@ -1,29 +1,27 @@
-#
+#!/bin/bash
 # ~/.bashrc
 #
 
-# Export ssh auth socket
-export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR"/ssh-agent.socket
 
-# Set locale
-export LC_ALL=en_US.UTF-8
-export LANG=en_US.UTF-8
+# If not running interactively, don't do anything
+case $- in
+    *i*) ;;
+      *) return;;
+esac
 
-# Set default EDITOR
-export EDITOR='nvim'
-export VISUAL='nvim'
+# Export variables
+source ~/bashrc/export.sh
 
-# Debug info link
-export DEBUGINFOD_URLS="https://debuginfod.archlinux.org/"  
+# Source alias
+source ~/bashrc/alias.sh
 
+# Export functions
+source ~/bashrc/functions.sh
 
-# Set default compilers
-export CC=clang
-export CXX=clang++
+# Set lang to PL
+setPL
 
-# Add additional path in PATH
-set PATH "$PATH:/home/"$USER"/.local/bin"
-
-# Run fish shell
-fish
+# Private sources
+PRIVATE_SOURCE_FILE='/home/'$USER'/.bashrc_private.sh'
+[[ -f "$PRIVATE_SOURCE_FILE" ]] || touch "$PRIVATE_SOURCE_FILE" && chmod +x "$PRIVATE_SOURCE_FILE"
 
