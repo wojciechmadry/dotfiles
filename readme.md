@@ -18,7 +18,7 @@ i3status or i3status-rust (bar)
 
 ## TMux
 
-## Fish and bashrc
+## Fish(Deprecated) and bashrc
 
 ## NeoVim
 

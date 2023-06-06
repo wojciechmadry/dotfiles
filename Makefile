@@ -3,10 +3,9 @@ help:
 	@echo make install	-	Install configuration files
 	@echo make backup	-	Save configuration files
 install:
-	# Fish shell
-	cp shell/config.fish ~/.config/fish/
 	# .bashrc
 	cp shell/.bashrc ~/
+	cp -r shell/bashrc ~/
 	# i3wm
 	cp i3/config ~/.config/i3/
 	cp i3/i3status.conf ~/.config/i3/
@@ -22,10 +21,9 @@ install:
 	# tmux
 	cp tmux/.tmux.conf ~/
 backup:
-	# Fish shell
-	cp ~/.config/fish/config.fish shell/
 	# .bashrc
 	cp ~/.bashrc shell/
+	cp -r ~/bashrc shell/
 	# i3wm
 	cp ~/.config/i3/config i3/
 	cp ~/.config/i3/i3status.conf i3/
