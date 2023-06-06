@@ -3,8 +3,6 @@ help:
 	@echo make install	-	Install configuration files
 	@echo make backup	-	Save configuration files
 install:
-	# Fish shell
-	cp shell/config.fish ~/.config/fish/
 	# .bashrc
 	cp shell/.bashrc ~/
 	# i3wm
@@ -22,8 +20,6 @@ install:
 	# tmux
 	cp tmux/.tmux.conf ~/
 backup:
-	# Fish shell
-	cp ~/.config/fish/config.fish shell/
 	# .bashrc
 	cp ~/.bashrc shell/
 	# i3wm
