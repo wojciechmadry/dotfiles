@@ -5,6 +5,7 @@
 # system alias
 alias ls='ls -a --color=auto'
 alias l=ls
+alias ll=ls
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
