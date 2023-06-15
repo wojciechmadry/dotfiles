@@ -24,4 +24,5 @@ setPL
 # Private sources
 PRIVATE_SOURCE_FILE='/home/'$USER'/.bashrc_private.sh'
 [[ -f "$PRIVATE_SOURCE_FILE" ]] || touch "$PRIVATE_SOURCE_FILE" && chmod +x "$PRIVATE_SOURCE_FILE"
+source "$PRIVATE_SOURCE_FILE"
 
