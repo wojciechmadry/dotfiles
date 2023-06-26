@@ -20,6 +20,10 @@ install:
 	cp -r rofi ~/.config/
 	# tmux
 	cp tmux/.tmux.conf ~/
+	# Install .ssh conf
+	cp git_ssh/config ~/.ssh/
+	# Install conky
+	cp -r conky ~/.conky
 backup:
 	# .bashrc
 	cp ~/.bashrc shell/
