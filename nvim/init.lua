@@ -58,7 +58,7 @@ require('lazy').setup({
 
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', opts = {} },
+      { 'j-hui/fidget.nvim', opts = {}, commit = "90c22e47be057562ee9566bad313ad42d622c1d3" },
 
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
