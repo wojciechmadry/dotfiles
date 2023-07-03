@@ -88,6 +88,9 @@ require('lazy').setup({
   -- Nvim tree
   'nvim-tree/nvim-tree.lua',
 
+  -- Git conflict
+  {'akinsho/git-conflict.nvim', version = "*", config = true},
+
   { -- Theme
     'morhetz/gruvbox',
     priority = 1000,
