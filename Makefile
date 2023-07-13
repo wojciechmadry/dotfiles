@@ -7,20 +7,25 @@ install:
 	cp shell/.bashrc ~/
 	cp -r shell/bashrc ~/
 	# i3wm
+	mkdir -p ~/.config/i3
 	cp i3/config ~/.config/i3/
 	cp i3/i3status.conf ~/.config/i3/
 	cp i3/i3status-rs.conf ~/.config/i3/
 	# NeoVim
+	mkdir -p ~/.config/nvim
 	cp nvim/init.lua ~/.config/nvim/
 	# Alacritty
+	mkdir -p ~/.config/alacritty
 	cp alacritty/alacritty.yml ~/.config/alacritty/
 	# Pico
+	mkdir -p ~/.config/picom
 	cp picom/config ~/.config/picom/
 	# Rofi
 	cp -r rofi ~/.config/
 	# tmux
 	cp tmux/.tmux.conf ~/
 	# Install .ssh conf
+	mkdir -p ~/.ssh
 	cp git_ssh/config ~/.ssh/
 	# Install conky
 	cp -r conky ~/.conky
