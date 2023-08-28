@@ -105,7 +105,7 @@ require('lazy').setup({
     opts = {
       options = {
         icons_enabled = false,
-        theme = 'onedark',
+        theme = 'gruvbox',
         component_separators = '|',
         section_separators = '',
       },
@@ -244,6 +244,10 @@ vim.bo.softtabstop = 2
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
+
+-- Remap for conflict
+vim.keymap.set('n', 'gb', '');
+vim.keymap.set("n", "gc", function() require('Comment.api').toggle.linewise.current() end, { noremap = true, silent = true })
 
 -- Remap for dealing with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
@@ -521,9 +525,10 @@ cmp.setup {
   },
 }
 
-require('lspconfig').clangd.setup {
-  cmd = {"clangd", "-offset-encoding=utf-16"},
-}
+-- require('lspconfig').clangd.setup {
+--  cmd = {"clangd", "-offset-encoding=utf-16"},
+--}
+
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
 
