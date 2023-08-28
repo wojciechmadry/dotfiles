@@ -525,9 +525,10 @@ cmp.setup {
   },
 }
 
-require('lspconfig').clangd.setup {
-  cmd = {"clangd", "-offset-encoding=utf-16"},
-}
+-- require('lspconfig').clangd.setup {
+--  cmd = {"clangd", "-offset-encoding=utf-16"},
+--}
+
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
 
