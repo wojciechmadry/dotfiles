@@ -32,8 +32,6 @@ require('lazy').setup({
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
 
-  --- Status bar
-  'vim-airline/vim-airline',
 
   --- Clangd-format
   'rhysd/vim-clang-format',
@@ -92,10 +90,11 @@ require('lazy').setup({
   {'akinsho/git-conflict.nvim', version = "*", config = true},
 
   { -- Theme
-    'morhetz/gruvbox',
+    "morhetz/gruvbox",
+    lazy = false,
     priority = 1000,
     config = function()
-      vim.cmd.colorscheme('gruvbox')
+      vim.cmd[[colorscheme gruvbox]]
     end,
   },
 
@@ -105,7 +104,6 @@ require('lazy').setup({
     opts = {
       options = {
         icons_enabled = false,
-        theme = 'gruvbox',
         component_separators = '|',
         section_separators = '',
       },
@@ -116,10 +114,8 @@ require('lazy').setup({
     'lukas-reineke/indent-blankline.nvim',
     -- Enable `lukas-reineke/indent-blankline.nvim`
     -- See `:help indent_blankline.txt`
-    opts = {
-      char = '┊',
-      show_trailing_blankline_indent = false,
-    },
+    main = "ibl",
+    opts = {},
   },
 
   -- "gc" to comment visual regions/lines
@@ -190,9 +186,6 @@ vim.wo.number = true
 
 -- Enable mouse mode
 vim.o.mouse = 'a'
-
--- dark background
-vim.o.background = "dark"
 
 -- Sync clipboard between OS and Neovim.
 --  Remove this option if you want your OS clipboard to remain independent.
