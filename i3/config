@@ -169,6 +169,7 @@ assign [class="Thunar"] $ws3
 assign [class="Nautilus"] $ws3
 assign [class="Slack"] $ws8
 assign [class="Teams"] $ws9
+assign [class="teams-for-linux"] $ws9
 assign [class="Spotify"] $ws10
 
 # reload the configuration file
