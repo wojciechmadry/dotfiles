@@ -90,11 +90,12 @@ require('lazy').setup({
   {'akinsho/git-conflict.nvim', version = "*", config = true},
 
   { -- Theme
-    "morhetz/gruvbox",
+    "folke/tokyonight.nvim",
     lazy = false,
     priority = 1000,
+    opts = {},
     config = function()
-      vim.cmd[[colorscheme gruvbox]]
+      vim.cmd[[colorscheme tokyonight-storm]]
     end,
   },
 
