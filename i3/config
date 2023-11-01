@@ -257,9 +257,6 @@ bindsym $mod+x exec "firefox"
 # Bind lock screen
 bindsym Control+$mod+1 exec "i3lock"
 
-# Set wallpaper
-exec_always feh --bg-scale ~/Obrazy/mystery-3840x2160.jpg
-
 # Printscreen
 bindsym Print exec gnome-screenshot -i
 
