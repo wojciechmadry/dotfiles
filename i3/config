@@ -164,6 +164,7 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 
 # Assign workspaces:
 assign [class="firefox"] $ws1
+assign [class="Firefox-esr"] $ws1
 assign [class="Alacritty"] $ws2
 assign [class="Thunar"] $ws3
 assign [class="Nautilus"] $ws3
@@ -243,10 +244,6 @@ bar {
         urgent_workspace #2f343a #900000 #ffffff
     }
 }
-
-exec yakuake
-
-exec sh ~/.conky/conky-startup.sh
 
 # Bind pavucontrol
 bindsym $mod+p exec "pavucontrol"
