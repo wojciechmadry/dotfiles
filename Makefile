@@ -26,8 +26,6 @@ install:
 	# Install .ssh conf
 	mkdir -p ~/.ssh
 	cp git_ssh/config ~/.ssh/
-	# Install conky
-	cp -r conky ~/.conky
 backup:
 	# .bashrc
 	cp ~/.bashrc shell/
