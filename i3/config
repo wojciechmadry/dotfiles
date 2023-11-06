@@ -164,6 +164,7 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 
 # Assign workspaces:
 assign [class="firefox"] $ws1
+assign [class="Firefox-esr"] $ws1
 assign [class="Alacritty"] $ws2
 assign [class="Thunar"] $ws3
 assign [class="Nautilus"] $ws3
@@ -244,10 +245,6 @@ bar {
     }
 }
 
-exec yakuake
-
-exec sh ~/.conky/conky-startup.sh
-
 # Bind pavucontrol
 bindsym $mod+p exec "pavucontrol"
 
@@ -259,9 +256,6 @@ bindsym $mod+x exec "firefox"
 
 # Bind lock screen
 bindsym Control+$mod+1 exec "i3lock"
-
-# Set wallpaper
-exec_always feh --bg-scale ~/Obrazy/mystery-3840x2160.jpg
 
 # Printscreen
 bindsym Print exec gnome-screenshot -i
