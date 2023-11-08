@@ -243,6 +243,9 @@ bar {
         inactive_workspace #333333 #333333 #888888
         urgent_workspace #2f343a #900000 #ffffff
     }
+    # Disable middle button scrolling
+    bindsym button4 nop
+    bindsym button5 nop
 }
 
 # Bind pavucontrol
