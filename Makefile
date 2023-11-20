@@ -9,7 +9,6 @@ install:
 	# i3wm
 	mkdir -p ~/.config/i3
 	cp i3/config ~/.config/i3/
-	cp i3/i3status.conf ~/.config/i3/
 	cp i3/i3status-rs.conf ~/.config/i3/
 	# NeoVim
 	mkdir -p ~/.config/nvim
@@ -27,15 +26,12 @@ install:
 	# Install .ssh conf
 	mkdir -p ~/.ssh
 	cp git_ssh/config ~/.ssh/
-	# Install conky
-	cp -r conky ~/.conky
 backup:
 	# .bashrc
 	cp ~/.bashrc shell/
 	cp -r ~/bashrc shell/
 	# i3wm
 	cp ~/.config/i3/config i3/
-	cp ~/.config/i3/i3status.conf i3/
 	cp ~/.config/i3/i3status-rs.conf i3/
 	# NeoVim
 	cp ~/.config/nvim/init.lua nvim/
