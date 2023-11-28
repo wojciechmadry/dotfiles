@@ -29,6 +29,11 @@ require('lazy').setup({
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
 
+  -- C++ debugger
+  'mfussenegger/nvim-dap',
+  'rcarriga/nvim-dap-ui',
+  'ldelossa/nvim-dap-projects',
+
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
 
@@ -270,6 +275,49 @@ require('telescope').setup {
     },
   },
 }
+local dap = require'dap'
+dap.adapters.cpp = {
+  type = 'executable',
+  command = 'lldb-vscode-15',
+  env = {
+    LLDB_LAUNCH_FLAG_LAUNCH_IN_TTY = "YES"
+  },
+  name = "lldb"
+}
+
+dap.configurations.cpp = {
+  {
+    name = "Launch",
+    type = "cpp",
+    request = "launch",
+    program = function()
+      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+    end,
+    cwd = '${workspaceFolder}',
+    args = {}
+  }
+}
+dap.configurations.c = dap.configurations.cpp
+
+local dapui = require("dapui")
+dap.listeners.after.event_initialized["dapui_config"] = function()
+  dapui.open()
+end
+dap.listeners.before.event_terminated["dapui_config"] = function()
+  dapui.close()
+end
+dap.listeners.before.event_exited["dapui_config"] = function()
+  dapui.close()
+end
+
+require("dapui").setup()
+
+vim.keymap.set('n', '<Leader>dc', function() require('dap').continue() end, { desc = "Continue" })
+vim.keymap.set('n', '<Leader>do', function() require('dap').step_over() end, { desc = "Step over" })
+vim.keymap.set('n', '<Leader>di', function() require('dap').step_into() end, { desc = "Step into" })
+vim.keymap.set('n', '<Leader>de', function() require('dap').step_out() end, { desc = "Step out" })
+vim.keymap.set('n', '<Leader>db', function() require('dap').toggle_breakpoint() end, { desc = "Toggle breakpoint" })
+vim.keymap.set('n', '<Leader>dB', function() require('dap').set_breakpoint() end, { desc = "Set breakpoint" })
 
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
