@@ -27,4 +27,4 @@ PRIVATE_SOURCE_FILE='/home/'$USER'/.bashrc_private.sh'
 source "$PRIVATE_SOURCE_FILE"
 
 
-#[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
