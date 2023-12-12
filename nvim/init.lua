@@ -310,6 +310,18 @@ dap.listeners.before.event_exited["dapui_config"] = function()
   dapui.close()
 end
 
+-- Build and run simple C++ program
+vim.keymap.set('n', '<Leader>bs', ':term clang++ -g -O0 -std=c++20 % && ./a.out<cr>', { silent = true })
+vim.keymap.set('n', '<Leader>bc', ':!mkdir -p build && cd build && cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 .. && make -j<cr>', { silent = true })
+vim.keymap.set('n', '<Leader>rr',
+  function()
+  local fname = vim.fn.input('Path to executable: ', './' , 'file')
+  vim.cmd(':term ./' .. fname)
+  end
+--':term echo test'
+  --  ':term echo test<cr>'
+  , { silent = true })
+
 require("dapui").setup()
 
 vim.keymap.set('n', '<Leader>dc', function() require('dap').continue() end, { desc = "Continue" })
