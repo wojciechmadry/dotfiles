@@ -91,6 +91,9 @@ require('lazy').setup({
   -- Nvim tree
   'nvim-tree/nvim-tree.lua',
 
+  -- Rust tools
+  'simrat39/rust-tools.nvim',
+
   -- Git conflict
   {'akinsho/git-conflict.nvim', version = "*", config = true},
 
@@ -263,6 +266,21 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
 })
 
+
+-- Configure rust-tools
+local rt = require("rust-tools")
+
+rt.setup({
+  server = {
+    on_attach = function(_, bufnr)
+      -- Hover actions
+      vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
+      -- Code action groups
+      vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
+    end,
+  },
+})
+
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
 require('telescope').setup {
@@ -358,7 +376,6 @@ require('nvim-treesitter.configs').setup {
 
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = false,
-
   highlight = { enable = true },
   indent = { enable = true, disable = { 'python' } },
   incremental_selection = {
@@ -516,7 +533,9 @@ local servers = {
 require('neodev').setup()
 
 -- Setup nvim-tree
-require("nvim-tree").setup()
+require("nvim-tree").setup({
+  git = {ignore = false}
+})
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
