@@ -330,14 +330,14 @@ end
 
 -- Build and run simple C++ program
 vim.g.splitbelow = 1
-vim.keymap.set('n', '<Leader>bs', ':botright :split | resize 10 | terminal clang++ -g -O0 -std=c++20 % && ./a.out<cr>', { silent = true })
-vim.keymap.set('n', '<Leader>bc', ':botright :split | resize 10 | terminal mkdir -p build && cd build && cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 .. && make -j<cr>', { silent = true })
+vim.keymap.set('n', '<Leader>bs', ':botright :split | resize 10 | terminal clang++ -g -O0 -std=c++20 % && ./a.out<cr>', { silent = true, desc = "C++20 simple build"})
+vim.keymap.set('n', '<Leader>bc', ':botright :split | resize 10 | terminal mkdir -p build && cd build && cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 .. && make -j<cr>', { silent = true, desc = "CMake build" })
 vim.keymap.set('n', '<Leader>rr',
   function()
   local fname = vim.fn.input('Path to executable: ', './' , 'file')
   vim.cmd('botright :split | resize 10 | terminal ' .. fname)
   end
-  , { silent = true })
+  , { silent = true, desc = "Run program"})
 
 require("dapui").setup()
 
