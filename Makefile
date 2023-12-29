@@ -19,8 +19,6 @@ install:
 	# Pico
 	mkdir -p ~/.config/picom
 	cp picom/config ~/.config/picom/
-	# Rofi
-	cp -r rofi ~/.config/
 	# tmux
 	cp tmux/.tmux.conf ~/
 	# Install .ssh conf
@@ -39,7 +37,5 @@ backup:
 	cp ~/.config/alacritty/alacritty.yml alacritty/
 	# Pico
 	cp ~/.config/picom/config picom/
-	# Rofi
-	cp -r ~/.config/rofi .
 	# tmux
 	cp ~/.tmux.conf tmux/
