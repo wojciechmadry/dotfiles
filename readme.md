@@ -26,9 +26,6 @@
 ## NeoVim
 ![nvim](pictures/nvim.png)
 
-## Rofi
-![rofi](pictures/rofi.png)
-
 ## Git ssh
 
 Git configuration to detect the ssh key: `~/.ssh/github`
