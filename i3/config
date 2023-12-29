@@ -232,11 +232,10 @@ bindsym Shift+$mod+Escape mode "$mode_system"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-	font pango:DejaVu Sans Mono, FontAwesome 11
+	font pango:JetBrains Mono Nerd Font, 11
 	status_command i3status-rs ~/.config/i3/i3status-rs.conf
     colors {
         separator #666666
-        background #222222
         statusline #dddddd
         focused_workspace #0088CC #0088CC #ffffff
         active_workspace #333333 #333333 #ffffff
