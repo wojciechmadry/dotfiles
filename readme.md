@@ -4,7 +4,7 @@
 
 `make backup` - backup config
 
-## Alacritty
+## ST - Simple Terminal
 
 **Requires**: [JetBrains Mono Nerd Font
 ](https://www.nerdfonts.com/font-downloads)
