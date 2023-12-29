@@ -21,6 +21,9 @@ font:
 
   size: 11.5
 
+import:
+ - ~/.alacritty-colorscheme/themes/tomorrow_night_bright.yaml
+
 cursor:
   style:
     shape: Beam
