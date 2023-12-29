@@ -67,7 +67,7 @@ bindsym $mod+Control+9 exec pactl set-default-sink $(pactl list | grep -E 'Name:
 bindsym $mod+Control+0 exec pactl set-default-sink $(pactl list | grep -E 'Name: .+output.+usb-Razer.+analog-stereo$' | cut -d ' ' -f 2)
 
 # start a terminal
-bindsym $mod+Return exec alacritty -e tmux
+bindsym $mod+Return exec st -e tmux
 
 # kill focused window
 bindsym $mod+Shift+q kill
