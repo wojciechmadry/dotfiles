@@ -166,6 +166,7 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 assign [class="firefox"] $ws1
 assign [class="Firefox-esr"] $ws1
 assign [class="Alacritty"] $ws2
+assign [class="st"] $ws2
 assign [class="Thunar"] $ws3
 assign [class="Nautilus"] $ws3
 assign [class="Slack"] $ws8
