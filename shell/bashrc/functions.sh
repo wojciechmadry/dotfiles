@@ -2,6 +2,15 @@
 # Functions
 #
 
+# Generate clangd for C++20 syntax
+function generate_clangd() {
+ echo "CompileFlags:" > .clangd
+ echo "  Add: [-std=c++20]" >> .clangd
+
+}
+
+export -f generate_clangd
+
 # Use clang compiler
 function export_clang() {
 	export CC=clang
