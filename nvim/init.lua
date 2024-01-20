@@ -201,9 +201,6 @@ vim.o.mouse = 'a'
 --  See `:help 'clipboard'`
 vim.o.clipboard = 'unnamedplus'
 
--- Enable break indent
-vim.o.breakindent = true
-
 -- Save undo history
 vim.o.undofile = true
 
@@ -596,6 +593,8 @@ cmp.setup {
     { name = 'luasnip' },
   },
 }
+
+require("ibl").setup()
 
 -- require('lspconfig').clangd.setup {
 --  cmd = {"clangd", "-offset-encoding=utf-16"},
