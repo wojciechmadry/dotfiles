@@ -336,6 +336,10 @@ vim.keymap.set('n', '<Leader>rr',
   end
   , { silent = true, desc = "Run program"})
 
+
+-- Print path of file
+vim.keymap.set('n', '<Leader>f', ":echo expand('%:p')<cr>", { desc = "Show file path"})
+
 require("dapui").setup()
 
 vim.keymap.set('n', '<Leader>dc', function() require('dap').continue() end, { desc = "Continue" })
