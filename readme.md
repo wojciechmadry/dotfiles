@@ -12,15 +12,6 @@
 ## [DWM](https://github.com/wojciechmadry/dwm) && [slstatus](https://github.com/wojciechmadry/slstatus)
 ![dwm_sls](pictures/dwm_sls.png)
 
-
-## i3 and Picom [Deprecated]
-
-#### i3status-rust bar
-![i3rs](pictures/i3bar-rust.png)
-
-#### i3wm + Picom
-![i3wmpicom](pictures/i3wm.png)
-
 ## TMux
 ![tmux](pictures/tmux.png)
 
