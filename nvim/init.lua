@@ -73,6 +73,29 @@ require('lazy').setup({
     dependencies = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
   },
 
+  -- Telescope undo tree
+  {
+  "nvim-telescope/telescope.nvim",
+  dependencies = {
+    "nvim-lua/plenary.nvim",
+    "debugloop/telescope-undo.nvim",
+  },
+  config = function()
+    require("telescope").setup({
+      -- the rest of your telescope config goes here
+      extensions = {
+        undo = {
+          -- telescope-undo.nvim config, see below
+        },
+        -- other extensions:
+        -- file_browser = { ... }
+      },
+    })
+    require("telescope").load_extension("undo")
+    -- optional: vim.keymap.set("n", "<leader>u", "<cmd>Telescope undo<cr>")
+  end,
+},
+
   -- Useful plugin to show you pending keybinds.
   { 'folke/which-key.nvim', opts = {} },
   { -- Adds git releated signs to the gutter, as well as utilities for managing changes
@@ -324,6 +347,9 @@ end
 dap.listeners.before.event_exited["dapui_config"] = function()
   dapui.close()
 end
+
+-- Toggle undo tree
+vim.keymap.set("n", "<leader>u", "<cmd>Telescope undo<cr>")
 
 -- Build and run simple C++ program
 vim.g.splitbelow = 1
