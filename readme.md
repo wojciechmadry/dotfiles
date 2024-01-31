@@ -4,12 +4,16 @@
 
 `make backup` - backup config
 
-## ST - Simple Terminal
+## [ST - Simple Terminal](https://github.com/wojciechmadry/st)
 
 **Requires**: [JetBrains Mono Nerd Font
 ](https://www.nerdfonts.com/font-downloads)
 
-## i3 and Picom
+## [DWM](https://github.com/wojciechmadry/dwm) && [slstatus](https://github.com/wojciechmadry/slstatus)
+![dwm_sls](pictures/dwm_sls.png)
+
+
+## i3 and Picom [Deprecated]
 
 #### i3status-rust bar
 ![i3rs](pictures/i3bar-rust.png)
