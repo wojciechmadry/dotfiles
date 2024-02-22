@@ -484,6 +484,9 @@ vim.keymap.set('i', '<C-Up>', "<ESC>:m-2<CR>", {desc = "Move line up"})
 vim.keymap.set('n', '<C-Down>', ":m+1<CR>", {desc = "Move line down"})
 vim.keymap.set('i', '<C-Down>', "<ESC>:m+1<CR>", {desc = "Move line down"})
 
+-- Default copy before cursor
+vim.keymap.set('n', 'p', '"+P')
+
 -- TODO: tab, and undo tab
 --nmap <C-Tab> :<<CR>
 
@@ -626,9 +629,10 @@ cmp.setup {
 
 require("ibl").setup()
 
--- require('lspconfig').clangd.setup {
---  cmd = {"clangd", "-offset-encoding=utf-16"},
---}
+require('lspconfig').clangd.setup {
+--   cmd = { "docker", "exec",  "-i", "example_container", "clangd", "--compile-commands-dir=/home/wojtek/git_projects/Clangd-Docker-NeoVim/examples/exampleApp/build"}
+  --  cmd = {"clangd", "-offset-encoding=utf-16"},
+}
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
