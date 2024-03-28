@@ -26,13 +26,20 @@ require('lazy').setup({
   -- NOTE: First, some plugins that don't require any configuration
 
   -- Git related plugins
-  'tpope/vim-fugitive',
-  'tpope/vim-rhubarb',
+  {
+    'tpope/vim-fugitive',
+    'tpope/vim-rhubarb',
+    -- Git conflict
+    {'akinsho/git-conflict.nvim', version = "*", config = true},
+  },
 
   -- C++ debugger
-  'mfussenegger/nvim-dap',
-  'rcarriga/nvim-dap-ui',
-  'ldelossa/nvim-dap-projects',
+  {
+    'mfussenegger/nvim-dap',
+    'rcarriga/nvim-dap-ui',
+    'ldelossa/nvim-dap-projects',
+    'nvim-neotest/nvim-nio'
+  },
 
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
@@ -41,7 +48,7 @@ require('lazy').setup({
   --- Clangd-format
   'rhysd/vim-clang-format',
 
-  -- Markdown previe
+  -- Markdown preview
   {
     "iamcco/markdown-preview.nvim",
     ft = "markdown",
@@ -50,8 +57,6 @@ require('lazy').setup({
     end,
   },
 
-  -- NOTE: This is where your plugins related to LSP can be installed.
-  --  The configuration is done below. Search for lspconfig to find it below.
   { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
     dependencies = {
@@ -117,9 +122,6 @@ require('lazy').setup({
   -- Rust tools
   'simrat39/rust-tools.nvim',
 
-  -- Git conflict
-  {'akinsho/git-conflict.nvim', version = "*", config = true},
-
   { -- Theme
     "morhetz/gruvbox",
     lazy = false,
@@ -180,21 +182,6 @@ require('lazy').setup({
     end,
   },
 
-  -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
-  --       These are some example plugins that I've included in the kickstart repository.
-  --       Uncomment any of the lines below to enable them.
-  -- require 'kickstart.plugins.autoformat',
-  -- require 'kickstart.plugins.debug',
-
-  -- NOTE: The import below automatically adds your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
-  --    You can use this folder to prevent any conflicts with this init.lua if you're interested in keeping
-  --    up-to-date with whatever is in the kickstart repo.
-  --
-  --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
-  --
-  --    An additional note is that if you only copied in the `init.lua`, you can just comment this line
-  --    to get rid of the warning telling you that there are not plugins in `lua/custom/plugins/`.
- --- { import = 'custom.plugins' },
 }, {})
 
 -- [[ Setting options ]]
@@ -535,11 +522,7 @@ local on_attach = function(_, bufnr)
   end, { desc = 'Format current buffer with LSP' })
 end
 
--- Enable the following language servers
---  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
---
---  Add any additional override configuration in the following tables. They will be passed to
---  the `settings` field of the server config. You must look up that documentation yourself.
+-- LSP servers
 local servers = {
   clangd = {},
   pyright = {},
@@ -633,7 +616,4 @@ require('lspconfig').clangd.setup {
 --   cmd = { "docker", "exec",  "-i", "example_container", "clangd", "--compile-commands-dir=/home/wojtek/git_projects/Clangd-Docker-NeoVim/examples/exampleApp/build"}
   --  cmd = {"clangd", "-offset-encoding=utf-16"},
 }
-
--- The line beneath this is called `modeline`. See `:help modeline`
--- vim: ts=2 sts=2 sw=2 et
 
