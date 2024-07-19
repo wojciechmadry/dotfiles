@@ -122,15 +122,8 @@ require('lazy').setup({
   -- Rust tools
   'simrat39/rust-tools.nvim',
 
-  { -- Theme
-    "morhetz/gruvbox",
-    lazy = false,
-    priority = 1000,
-    opts = {},
-    config = function()
-      vim.cmd[[colorscheme gruvbox]]
-    end,
-  },
+  -- Theme
+  { "ellisonleao/gruvbox.nvim", priority = 1000 , config = true, opts = ...},
 
   { -- Set lualine as statusline
     'nvim-lualine/lualine.nvim',
@@ -616,4 +609,31 @@ require('lspconfig').clangd.setup {
 --   cmd = { "docker", "exec",  "-i", "example_container", "clangd", "--compile-commands-dir=/home/wojtek/git_projects/Clangd-Docker-NeoVim/examples/exampleApp/build"}
   --  cmd = {"clangd", "-offset-encoding=utf-16"},
 }
+
+-- Default options for theme
+require("gruvbox").setup({
+  terminal_colors = true, -- add neovim terminal colors
+  undercurl = true,
+  underline = true,
+  bold = true,
+  italic = {
+    strings = true,
+    emphasis = true,
+    comments = true,
+    operators = false,
+    folds = true,
+  },
+  strikethrough = true,
+  invert_selection = false,
+  invert_signs = false,
+  invert_tabline = false,
+  invert_intend_guides = false,
+  inverse = true, -- invert background for search, diffs, statuslines and errors
+  contrast = "", -- can be "hard", "soft" or empty string
+  palette_overrides = {},
+  overrides = {},
+  dim_inactive = false,
+  transparent_mode = false,
+})
+vim.cmd("colorscheme gruvbox")
 
