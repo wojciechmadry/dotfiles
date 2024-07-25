@@ -343,8 +343,14 @@ vim.keymap.set('n', '<Leader>rr',
   , { silent = true, desc = "Run program"})
 
 
--- Print path of file
-vim.keymap.set('n', '<Leader>f', ":echo expand('%:p')<cr>", { desc = "Show file path"})
+-- Print/Copy path of file
+function CopyFilePath()
+  local filepath = vim.fn.expand('%:p')
+  print(filepath)
+  vim.fn.setreg('+', filepath)
+end
+vim.keymap.set('n', '<Leader>ff', ":echo expand('%:p')<cr>", { desc = "Show file path"})
+vim.keymap.set('n', '<Leader>fc', CopyFilePath, { desc = "Copy file path"})
 
 require("dapui").setup()
 
