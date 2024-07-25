@@ -361,6 +361,9 @@ vim.keymap.set('n', '<Leader>de', function() require('dap').step_out() end, { de
 vim.keymap.set('n', '<Leader>db', function() require('dap').toggle_breakpoint() end, { desc = "Toggle breakpoint" })
 vim.keymap.set('n', '<Leader>dB', function() require('dap').set_breakpoint() end, { desc = "Set breakpoint" })
 
+-- NvimTree keybinds
+vim.keymap.set('n', '<Leader>tf', ':NvimTreeFindFile<cr>', { desc = "Find current file" })
+
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
 
@@ -546,7 +549,12 @@ require('neodev').setup()
 
 -- Setup nvim-tree
 require("nvim-tree").setup({
-  git = {ignore = false}
+  git = {ignore = false},
+  actions = {
+    open_file = {
+      resize_window = false,
+    },
+  },
 })
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
