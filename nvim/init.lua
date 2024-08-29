@@ -17,6 +17,9 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- Colorschemes for git conflicts
+vim.api.nvim_command('highlight default ConflictIncoming guibg=#8A2A2A')
+vim.api.nvim_command('highlight default ConflictHead guibg=#0B5A0E')
 -- NOTE: Here is where you install your plugins.
 --  You can configure plugins using the `config` key.
 --
@@ -30,7 +33,10 @@ require('lazy').setup({
     'tpope/vim-fugitive',
     'tpope/vim-rhubarb',
     -- Git conflict
-    {'akinsho/git-conflict.nvim', version = "*", config = true},
+    {'akinsho/git-conflict.nvim', version = "*", config = {  highlights = { -- They must have background color, otherwise the default color will be used
+    incoming = 'ConflictIncoming',
+    current = 'ConflictHead',
+  }}},
   },
 
   -- C++ debugger
