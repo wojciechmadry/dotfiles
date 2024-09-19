@@ -20,6 +20,8 @@ vim.opt.rtp:prepend(lazypath)
 -- Colorschemes for git conflicts
 vim.api.nvim_command('highlight default ConflictIncoming guibg=#8A2A2A')
 vim.api.nvim_command('highlight default ConflictHead guibg=#0B5A0E')
+
+-- highlight NewColour guibg=#ƒƒƒƒƒƒ
 -- NOTE: Here is where you install your plugins.
 --  You can configure plugins using the `config` key.
 --
@@ -271,7 +273,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = highlight_group,
   pattern = '*',
 })
-
 
 -- Configure rust-tools
 local rt = require("rust-tools")
@@ -586,6 +587,9 @@ mason_lspconfig.setup_handlers {
     }
   end,
 }
+
+-- Setup php
+require("lspconfig").phpactor.setup{}
 
 -- nvim-cmp setup
 local cmp = require 'cmp'
