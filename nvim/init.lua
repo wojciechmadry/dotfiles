@@ -350,6 +350,9 @@ vim.keymap.set('n', '<Leader>rr',
   , { silent = true, desc = "Run program"})
 
 
+-- Print unsaved changes
+vim.keymap.set('n', '<Leader>m', ':vert new | set buftype=nofile | read ++edit # | 0d_ | diffthis | wincmd p | diffthis<cr>', { silent = true, desc = "Show unsaved changes" })
+
 -- Print/Copy path of file
 function CopyFilePath()
   local filepath = vim.fn.expand('%:p')
