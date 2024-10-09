@@ -13,7 +13,7 @@ install:
 	cp tmux/.tmux.conf ~/
 	# Install .ssh conf
 	mkdir -p ~/.ssh
-	cp git_ssh/config ~/.ssh/
+	cp -n git_ssh/config ~/.ssh/
 backup:
 	# .bashrc
 	cp ~/.bashrc shell/
