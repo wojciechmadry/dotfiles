@@ -35,7 +35,7 @@ require('lazy').setup({
     'tpope/vim-fugitive',
     'tpope/vim-rhubarb',
     -- Git conflict
-    {'akinsho/git-conflict.nvim', version = "*", config = {  highlights = { -- They must have background color, otherwise the default color will be used
+    {'akinsho/git-conflict.nvim', version = "*", opts = {  highlights = { -- They must have background color, otherwise the default color will be used
     incoming = 'ConflictIncoming',
     current = 'ConflictHead',
   }}},
@@ -303,7 +303,7 @@ require('telescope').setup {
 local dap = require'dap'
 dap.adapters.cpp = {
   type = 'executable',
-  command = 'lldb-vscode',
+  command = 'lldb-dap',
   env = {
     LLDB_LAUNCH_FLAG_LAUNCH_IN_TTY = "YES"
   },
@@ -349,6 +349,9 @@ vim.keymap.set('n', '<Leader>rr',
   end
   , { silent = true, desc = "Run program"})
 
+
+-- Print unsaved changes
+vim.keymap.set('n', '<Leader>m', ':vert new | set buftype=nofile | read ++edit # | 0d_ | diffthis | wincmd p | diffthis<cr>', { silent = true, desc = "Show unsaved changes" })
 
 -- Print/Copy path of file
 function CopyFilePath()
