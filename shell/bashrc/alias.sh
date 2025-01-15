@@ -39,6 +39,7 @@ alias cmake_cc_ninja='cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -GNinja ..'
 # docker
 alias xhost_init='xhost +local:docker'
 alias d_gui='docker run -it --rm --env="DISPLAY" --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" '
+alias d_gui_pipewire='docker run -it --rm --env="DISPLAY" --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" -v /run/user/1000/pipewire-0:/tmp/pipewire-0 -e XDG_RUNTIME_DIR=/tmp '
 alias d_il='docker image list'
 alias d_ps='docker ps -a'
 alias d_prune='docker container prune'
