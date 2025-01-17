@@ -66,10 +66,9 @@ require('lazy').setup({
   -- Markdown preview
   {
     "iamcco/markdown-preview.nvim",
-    ft = "markdown",
-    build = function()
-      vim.fn["mkdp#util#install"]()
-    end,
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    ft = { "markdown" },
+    build = function() vim.fn["mkdp#util#install"]() end,
   },
 
   { -- LSP Configuration & Plugins
@@ -194,6 +193,15 @@ require('lazy').setup({
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
+
+
+-- Color trailing spaces/tabs
+vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
+    callback = function()
+        vim.cmd(':highlight ExtraWhitespace ctermbg=red guibg=red')
+        vim.cmd(':match ExtraWhitespace /\\s\\+$/')
+    end
+})
 
 -- trigger `autoread` when files changes on disk
 vim.g.autoread = true
