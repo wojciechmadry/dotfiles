@@ -18,11 +18,10 @@ alias here='pwd | thunar'
 alias d='docker'
 
 # nvim
-alias nf='nvim ~/.config/fish/config.fish'
 alias nb='nvim ~/.bashrc'
-alias niwm='nvim ~/.config/i3/config'
 alias nv='nvim'
 alias n='nvim'
+alias nc='nvim ~/.config/nvim/init.lua'
 
 # git
 alias git_sub='git submodule init && git submodule update'
