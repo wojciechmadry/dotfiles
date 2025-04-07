@@ -333,24 +333,22 @@ require('telescope').setup {
   },
 }
 local dap = require'dap'
-dap.adapters.cpp = {
+dap.adapters.lldb = {
   type = 'executable',
-  command = 'lldb-dap',
-  env = {
-    LLDB_LAUNCH_FLAG_LAUNCH_IN_TTY = "YES"
-  },
+  command = '/usr/bin/lldb-dap',
   name = "lldb"
 }
 
 dap.configurations.cpp = {
   {
     name = "Launch",
-    type = "cpp",
+    type = "lldb",
     request = "launch",
     program = function()
       return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
     end,
     cwd = '${workspaceFolder}',
+    stopOnEntry = false,
     args = {}
   }
 }
@@ -359,12 +357,6 @@ dap.configurations.c = dap.configurations.cpp
 local dapui = require("dapui")
 dap.listeners.after.event_initialized["dapui_config"] = function()
   dapui.open()
-end
-dap.listeners.before.event_terminated["dapui_config"] = function()
-  dapui.close()
-end
-dap.listeners.before.event_exited["dapui_config"] = function()
-  dapui.close()
 end
 
 -- Toggle undo tree
@@ -402,6 +394,7 @@ vim.keymap.set('n', '<Leader>di', function() require('dap').step_into() end, { d
 vim.keymap.set('n', '<Leader>de', function() require('dap').step_out() end, { desc = "Step out" })
 vim.keymap.set('n', '<Leader>db', function() require('dap').toggle_breakpoint() end, { desc = "Toggle breakpoint" })
 vim.keymap.set('n', '<Leader>dB', function() require('dap').set_breakpoint() end, { desc = "Set breakpoint" })
+vim.keymap.set('n', '<Leader>de', function() require('dapui').close() end, { desc = "Exit dapui" })
 
 -- NvimTree keybinds
 vim.keymap.set('n', '<Leader>tf', ':NvimTreeFindFile<cr>', { desc = "Find current file" })
