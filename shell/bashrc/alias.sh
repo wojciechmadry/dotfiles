@@ -26,6 +26,7 @@ alias nc='nvim ~/.config/nvim/init.lua'
 # git
 alias git_sub='git submodule init && git submodule update'
 alias cd_git='cd ~/git_projects'
+alias lg='lazygit'
 
 # keyboard
 alias setPL='setxkbmap -layout pl'
