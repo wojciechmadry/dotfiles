@@ -16,6 +16,7 @@ alias clip="xclip -selection c"
 alias cl='clear'
 alias here='pwd | thunar'
 alias d='docker'
+alias brightness='cat /sys/class/backlight/amdgpu_bl1/brightness'
 
 # nvim
 alias nb='nvim ~/.bashrc'
