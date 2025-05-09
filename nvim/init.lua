@@ -147,8 +147,17 @@ require('lazy').setup({
       },
     },
   },
+
   -- Nvim tree
   'nvim-tree/nvim-tree.lua',
+
+  -- Oil
+  {
+    'stevearc/oil.nvim',
+    opts = {},
+    -- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
+    lazy = false,
+  },
 
   -- Rust tools
   'simrat39/rust-tools.nvim',
@@ -396,9 +405,6 @@ vim.keymap.set('n', '<Leader>db', function() require('dap').toggle_breakpoint() 
 vim.keymap.set('n', '<Leader>dB', function() require('dap').set_breakpoint() end, { desc = "Set breakpoint" })
 vim.keymap.set('n', '<Leader>de', function() require('dapui').close() end, { desc = "Exit dapui" })
 
--- NvimTree keybinds
-vim.keymap.set('n', '<Leader>tf', ':NvimTreeFindFile<cr>', { desc = "Find current file" })
-
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
 
@@ -490,9 +496,6 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = "Go to next diagnos
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
 
--- Open tree with Ctrl-B
-vim.keymap.set('n', '<C-b>', ":NvimTreeToggle<CR>", {desc = "Open nvim tree"})
-
 -- Delete line
 vim.keymap.set('n', '<C-y>', ":delete<CR>", {desc = "Delete current line"})
 
@@ -582,6 +585,20 @@ local servers = {
 -- Setup neovim lua configuration
 require('neodev').setup()
 
+-- Setup Oil
+require("oil").setup({
+  delete_to_trash = true,
+  watch_for_changes = true,
+  keymaps = {
+    ["<C-h>"] = { "actions.toggle_hidden", mode = "n" },
+    ["<CR>"] = "actions.select",
+    ["<Esc>"] = { "actions.close", mode = "n" },
+  },
+})
+
+-- Open oil with Ctrl-B
+vim.keymap.set('n', '<C-b>', function() require("oil").toggle_float() end, {desc = "Open Oil"})
+
 -- Setup nvim-tree
 require("nvim-tree").setup({
   git = {ignore = false},
@@ -591,6 +608,11 @@ require("nvim-tree").setup({
     },
   },
 })
+
+-- NvimTree config
+vim.keymap.set('n', '<Leader>tt', ":NvimTreeToggle<CR>", {desc = "Open nvim tree"})
+vim.keymap.set('n', '<Leader>tf', ':NvimTreeFindFile<cr>', { desc = "Find current file" })
+
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -698,6 +720,19 @@ vim.keymap.set("n", "<leader>1", function() harpoon:list():select(1) end, { desc
 vim.keymap.set("n", "<leader>2", function() harpoon:list():select(2) end, { desc = "Harpoon #2" })
 vim.keymap.set("n", "<leader>3", function() harpoon:list():select(3) end, { desc = "Harpoon #3" })
 vim.keymap.set("n", "<leader>4", function() harpoon:list():select(4) end, { desc = "Harpoon #4" })
+vim.keymap.set("n", "<leader>5", function() harpoon:list():select(5) end, { desc = "Harpoon #5" })
+vim.keymap.set("n", "<leader>6", function() harpoon:list():select(6) end, { desc = "Harpoon #6" })
+vim.keymap.set("n", "<leader>7", function() harpoon:list():select(7) end, { desc = "Harpoon #7" })
+vim.keymap.set("n", "<leader>8", function() harpoon:list():select(8) end, { desc = "Harpoon #8" })
+vim.keymap.set("n", "<leader>9", function() harpoon:list():select(9) end, { desc = "Harpoon #9" })
+
+-- Git conflict keymaps
+vim.keymap.set("n", "<leader>gl", ':GitConflictListQf<cr>', { desc = "List git conflicts in repo" })
+vim.keymap.set("n", "<leader>gn", ':GitConflictNextConflict<cr>', { desc = "Go to next conflict" })
+vim.keymap.set("n", "<leader>gp", ':GitConflictPrevConflict<cr>', { desc = "Go to prev conflict" })
+vim.keymap.set("n", "<leader>gb", ':GitConflictChooseBoth<cr>', { desc = "Chose both" })
+vim.keymap.set("n", "<leader>go", ':GitConflictChooseOurs<cr>', { desc = "Chose ours" })
+vim.keymap.set("n", "<leader>gt", ':GitConflictChooseTheirs<cr>', { desc = "Chose theirs" })
 
 
 -- Unbind PgUp/PgDown
