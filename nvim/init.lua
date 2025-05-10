@@ -593,6 +593,7 @@ require("oil").setup({
     ["<C-h>"] = { "actions.toggle_hidden", mode = "n" },
     ["<CR>"] = "actions.select",
     ["<Esc>"] = { "actions.close", mode = "n" },
+    ["<C-c>"] = {},
   },
 })
 
@@ -751,4 +752,3 @@ vim.keymap.set("", "<C-f>", "<Nop>")
 vim.keymap.set("n", "<S-q>", "<Nop>")
 vim.keymap.set("n", "@c", 'gg0^VG$y<C-o>zz', { desc = "Copy file content" })
 vim.keymap.set("n", "@d", 'gg0^VG$dg//^\\s*$/d', { desc = "Delete file content" })
-
