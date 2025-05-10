@@ -743,3 +743,12 @@ vim.keymap.set("n", "<leader>gt", ':GitConflictChooseTheirs<cr>', { desc = "Chos
 
 -- Unbind PgUp/PgDown
 vim.keymap.set("", "<C-f>", "<Nop>")
+
+
+------------------------
+--- Macros ---
+------------------------
+vim.keymap.set("n", "<S-q>", "<Nop>")
+vim.keymap.set("n", "@c", 'gg0^VG$y<C-o>zz', { desc = "Copy file content" })
+vim.keymap.set("n", "@d", 'gg0^VG$dg//^\\s*$/d', { desc = "Delete file content" })
+
