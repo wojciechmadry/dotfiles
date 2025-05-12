@@ -27,26 +27,6 @@ function export_gcc() {
 
 export -f export_gcc
 
-# Set Python compiler to 3.10
-function set_python310() {
-	sudo rm /usr/bin/python
-	sudo rm /usr/bin/python3
-	sudo ln -s /usr/bin/python3.10 /usr/bin/python3
-	sudo ln -s /usr/bin/python3.10 /usr/bin/python
-}
-
-export -f set_python310
-
-# Set Python compiler to 3.8
-function set_python38() {
-	sudo rm /usr/bin/python
-	sudo rm /usr/bin/python3
-	sudo ln -s /usr/bin/python3.8 /usr/bin/python3
-	sudo ln -s /usr/bin/python3.8 /usr/bin/python
-}
-
-export -f set_python38
-
 # Use headphones (My razer headphones)
 function sound_headphones() {
 	set headphones_name "$(pactl list | grep -E 'Name: .+output.+usb-Razer.+analog-stereo$' | cut -d ' ' -f 2)"

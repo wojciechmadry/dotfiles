@@ -14,7 +14,6 @@ export MAKEFLAGS=-j$(nproc)
 # CMake options
 export CMAKE_GENERATOR='Unix Makefiles'
 
-
 # Debug info link (for valgrind problem)
 export DEBUGINFOD_URLS="https://debuginfod.archlinux.org/"
 

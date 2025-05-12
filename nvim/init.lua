@@ -1,9 +1,6 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
--- Install package manager
---    https://github.com/folke/lazy.nvim
---    `:help lazy.nvim.txt` for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system {
@@ -21,15 +18,7 @@ vim.opt.rtp:prepend(lazypath)
 vim.api.nvim_command('highlight default ConflictIncoming guibg=#8A2A2A')
 vim.api.nvim_command('highlight default ConflictHead guibg=#0B5A0E')
 
--- highlight NewColour guibg=#ƒƒƒƒƒƒ
--- NOTE: Here is where you install your plugins.
---  You can configure plugins using the `config` key.
---
---  You can also configure plugins after the setup call,
---    as they will be available in your neovim runtime.
 require('lazy').setup({
-  -- NOTE: First, some plugins that don't require any configuration
-
   -- Git related plugins
   {
     'tpope/vim-fugitive',
@@ -70,8 +59,6 @@ require('lazy').setup({
         "LazyGitFilter",
         "LazyGitFilterCurrentFile",
     },
-    -- setting the keybinding for LazyGit with 'keys' is recommended in
-    -- order to load the plugin when the command is run for the first time
     keys = {
         { "<leader>lg", "<cmd>LazyGit<cr>", desc = "LazyGit" }
     }
@@ -95,8 +82,6 @@ require('lazy').setup({
       { "mason-org/mason.nvim", version = "^1.0.0" },
       { "mason-org/mason-lspconfig.nvim", version = "^1.0.0" },
 
-      -- Useful status updates for LSP
-      -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
       { 'j-hui/fidget.nvim', opts = {}, commit = "90c22e47be057562ee9566bad313ad42d622c1d3" },
 
       -- Additional lua configuration, makes nvim stuff amazing!
@@ -118,21 +103,15 @@ require('lazy').setup({
   },
   config = function()
     require("telescope").setup({
-      -- the rest of your telescope config goes here
       extensions = {
         undo = {
-          -- telescope-undo.nvim config, see below
         },
-        -- other extensions:
-        -- file_browser = { ... }
       },
     })
     require("telescope").load_extension("undo")
-    -- optional: vim.keymap.set("n", "<leader>u", "<cmd>Telescope undo<cr>")
   end,
 },
 
-  -- Useful plugin to show you pending keybinds.
   { 'folke/which-key.nvim', opts = {} },
   { -- Adds git releated signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
@@ -179,7 +158,6 @@ require('lazy').setup({
 
   { -- Add indentation guides even on blank lines
     'lukas-reineke/indent-blankline.nvim',
-    -- Enable `lukas-reineke/indent-blankline.nvim`
     -- See `:help indent_blankline.txt`
     main = "ibl",
     opts = {},
@@ -191,13 +169,8 @@ require('lazy').setup({
   -- Fuzzy Finder (files, lsp, etc)
   { 'nvim-telescope/telescope.nvim', version = '*', dependencies = { 'nvim-lua/plenary.nvim' } },
 
-  -- Fuzzy Finder Algorithm which requires local dependencies to be built.
-  -- Only load if `make` is available. Make sure you have the system
-  -- requirements installed.
   {
     'nvim-telescope/telescope-fzf-native.nvim',
-    -- NOTE: If you are having trouble with this installation,
-    --       refer to the README for telescope-fzf-native for more instructions.
     build = 'make',
     cond = function()
       return vim.fn.executable 'make' == 1
@@ -211,15 +184,10 @@ require('lazy').setup({
     },
     config = function()
       require("nvim-treesitter.install").prefer_git = true
-      -- pcall(require('nvim-treesitter.install').update { with_sync = true })
     end,
   },
 
 }, {})
-
--- [[ Setting options ]]
--- See `:help vim.o`
-
 
 -- Color trailing spaces/tabs
 vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
@@ -249,8 +217,6 @@ vim.wo.number = true
 vim.o.mouse = 'a'
 
 -- Sync clipboard between OS and Neovim.
---  Remove this option if you want your OS clipboard to remain independent.
---  See `:help 'clipboard'`
 vim.o.clipboard = 'unnamedplus'
 
 -- Save undo history
@@ -281,7 +247,7 @@ vim.o.timeoutlen = 300
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect,noinsert'
 
--- NOTE: You should make sure your terminal supports this
+-- Term gui colors
 vim.o.termguicolors = true
 
 -- Set tab as 2 spaces
@@ -292,8 +258,7 @@ vim.bo.softtabstop = 2
 
 -- [[ Basic Keymaps ]]
 
--- Keymaps for better default experience
--- See `:help vim.keymap.set()`
+-- Space - do nothing
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 -- Remap for conflict
@@ -305,7 +270,6 @@ vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = tr
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- [[ Highlight on yank ]]
--- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
 vim.api.nvim_create_autocmd('TextYankPost', {
   callback = function()
@@ -330,7 +294,6 @@ rt.setup({
 })
 
 -- [[ Configure Telescope ]]
--- See `:help telescope` and `:help telescope.setup()`
 require('telescope').setup {
   defaults = {
     mappings = {
@@ -426,9 +389,7 @@ vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 
 -- [[ Configure Treesitter ]]
--- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
-  -- Add languages to be installed here that you want installed for treesitter
   ensure_installed = { 'c', 'cpp', 'lua', 'python', 'rust', 'vimdoc', 'vim' },
 
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
@@ -518,14 +479,7 @@ vim.keymap.set('n', 'p', '"+P')
 --nmap <C-Tab> :<<CR>
 
 -- LSP settings.
---  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(_, bufnr)
-  -- NOTE: Remember that lua is a real programming language, and as such it is possible
-  -- to define small helper and utility functions so you don't have to repeat yourself
-  -- many times.
-  --
-  -- In this case, we create a function that lets us more easily define mappings specific
-  -- for LSP related items. It sets the mode, buffer and description for us each time.
   local nmap = function(keys, func, desc)
     if desc then
       desc = 'LSP: ' .. desc
