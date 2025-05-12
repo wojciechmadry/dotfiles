@@ -92,8 +92,8 @@ require('lazy').setup({
     'neovim/nvim-lspconfig',
     dependencies = {
       -- Automatically install LSPs to stdpath for neovim
-      'williamboman/mason.nvim',
-      'williamboman/mason-lspconfig.nvim',
+      { "mason-org/mason.nvim", version = "^1.0.0" },
+      { "mason-org/mason-lspconfig.nvim", version = "^1.0.0" },
 
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
@@ -658,10 +658,12 @@ cmp.setup {
     ["<Down>"] = function()
       require('cmp').abort()
       vim.cmd('stopinsert | +1')
+      vim.api.nvim_feedkeys("i", "n", false)
     end,
     ["<Up>"] = function()
       require('cmp').abort()
       vim.cmd('stopinsert | -1')
+      vim.api.nvim_feedkeys("i", "n", false)
     end,
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
