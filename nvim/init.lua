@@ -472,9 +472,6 @@ vim.keymap.set('i', '<C-Up>', "<ESC>:m-2<CR>", {desc = "Move line up"})
 vim.keymap.set('n', '<C-Down>', ":m+1<CR>", {desc = "Move line down"})
 vim.keymap.set('i', '<C-Down>', "<ESC>:m+1<CR>", {desc = "Move line down"})
 
--- Default copy before cursor
-vim.keymap.set('n', 'p', '"+P')
-
 -- TODO: tab, and undo tab
 --nmap <C-Tab> :<<CR>
 
