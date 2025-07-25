@@ -18,6 +18,9 @@ source ~/bashrc/alias.sh
 # Export functions
 source ~/bashrc/functions.sh
 
+# Add rust folder to PATH
+export PATH="$HOME/.cargo/bin:$PATH"
+
 # Set lang to PL
 setPL
 

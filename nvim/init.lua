@@ -41,7 +41,6 @@ require('lazy').setup({
   {
     'mfussenegger/nvim-dap',
     'rcarriga/nvim-dap-ui',
-    'ldelossa/nvim-dap-projects',
     'nvim-neotest/nvim-nio'
   },
 
@@ -64,9 +63,6 @@ require('lazy').setup({
     }
   },
 
-  --- Clangd-format
-  'rhysd/vim-clang-format',
-
   -- Markdown preview
   {
     "iamcco/markdown-preview.nvim",
@@ -78,10 +74,6 @@ require('lazy').setup({
   { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
     dependencies = {
-      -- Automatically install LSPs to stdpath for neovim
-      { "mason-org/mason.nvim", version = "^1.0.0" },
-      { "mason-org/mason-lspconfig.nvim", version = "^1.0.0" },
-
       { 'j-hui/fidget.nvim', opts = {}, commit = "90c22e47be057562ee9566bad313ad42d622c1d3" },
 
       -- Additional lua configuration, makes nvim stuff amazing!
@@ -128,7 +120,19 @@ require('lazy').setup({
   },
 
   -- Nvim tree
+  {
   'nvim-tree/nvim-tree.lua',
+    config = function()
+      require("nvim-tree").setup({
+        git = {ignore = false},
+        actions = {
+          open_file = {
+            resize_window = false,
+          },
+        },
+      })
+    end
+  },
 
   -- Oil
   {
@@ -139,7 +143,21 @@ require('lazy').setup({
   },
 
   -- Rust tools
-  'simrat39/rust-tools.nvim',
+  {
+    'simrat39/rust-tools.nvim',
+    config = function()
+      require("rust-tools").setup({
+        server = {
+        on_attach = function(_, bufnr)
+          -- Hover actions
+          vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
+          -- Code action groups
+          vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
+        end,
+        }
+      })
+    end
+  },
 
   -- Theme
   { "ellisonleao/gruvbox.nvim", priority = 1000 , config = true, opts = ...},
@@ -165,9 +183,6 @@ require('lazy').setup({
 
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim', opts = {} },
-
-  -- Fuzzy Finder (files, lsp, etc)
-  { 'nvim-telescope/telescope.nvim', version = '*', dependencies = { 'nvim-lua/plenary.nvim' } },
 
   {
     'nvim-telescope/telescope-fzf-native.nvim',
@@ -279,20 +294,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
 })
 
--- Configure rust-tools
-local rt = require("rust-tools")
-
-rt.setup({
-  server = {
-    on_attach = function(_, bufnr)
-      -- Hover actions
-      vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
-      -- Code action groups
-      vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
-    end,
-  },
-})
-
 -- [[ Configure Telescope ]]
 require('telescope').setup {
   defaults = {
@@ -305,16 +306,17 @@ require('telescope').setup {
   },
 }
 local dap = require'dap'
-dap.adapters.lldb = {
-  type = 'executable',
-  command = '/usr/bin/lldb-dap',
-  name = "lldb"
+
+dap.adapters.gdb = {
+  type = "executable",
+  command = "gdb",
+  args = { "--interpreter=dap", "--eval-command", "set print pretty on" }
 }
 
 dap.configurations.cpp = {
   {
     name = "Launch",
-    type = "lldb",
+    type = "gdb",
     request = "launch",
     program = function()
       return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
@@ -326,9 +328,9 @@ dap.configurations.cpp = {
 }
 dap.configurations.c = dap.configurations.cpp
 
-local dapui = require("dapui")
+require("dapui").setup()
 dap.listeners.after.event_initialized["dapui_config"] = function()
-  dapui.open()
+  require("dapui").open()
 end
 
 -- Toggle undo tree
@@ -358,15 +360,13 @@ end
 vim.keymap.set('n', '<Leader>ff', ":echo expand('%:p')<cr>", { desc = "Show file path"})
 vim.keymap.set('n', '<Leader>fc', CopyFilePath, { desc = "Copy file path"})
 
-require("dapui").setup()
-
 vim.keymap.set('n', '<Leader>dc', function() require('dap').continue() end, { desc = "Continue" })
 vim.keymap.set('n', '<Leader>do', function() require('dap').step_over() end, { desc = "Step over" })
 vim.keymap.set('n', '<Leader>di', function() require('dap').step_into() end, { desc = "Step into" })
 vim.keymap.set('n', '<Leader>de', function() require('dap').step_out() end, { desc = "Step out" })
 vim.keymap.set('n', '<Leader>db', function() require('dap').toggle_breakpoint() end, { desc = "Toggle breakpoint" })
 vim.keymap.set('n', '<Leader>dB', function() require('dap').set_breakpoint() end, { desc = "Set breakpoint" })
-vim.keymap.set('n', '<Leader>de', function() require('dapui').close() end, { desc = "Exit dapui" })
+vim.keymap.set('n', '<Leader>dx', function() require('dapui').close() end, { desc = "Exit dapui" })
 
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
@@ -472,8 +472,10 @@ vim.keymap.set('i', '<C-Up>', "<ESC>:m-2<CR>", {desc = "Move line up"})
 vim.keymap.set('n', '<C-Down>', ":m+1<CR>", {desc = "Move line down"})
 vim.keymap.set('i', '<C-Down>', "<ESC>:m+1<CR>", {desc = "Move line down"})
 
--- TODO: tab, and undo tab
---nmap <C-Tab> :<<CR>
+vim.diagnostic.config({
+  -- Use the default configuration
+  virtual_lines = true
+})
 
 -- LSP settings.
 local on_attach = function(_, bufnr)
@@ -513,26 +515,6 @@ local on_attach = function(_, bufnr)
   end, { desc = 'Format current buffer with LSP' })
 end
 
--- LSP servers
-local servers = {
-  clangd = {},
-  pyright = {},
-  rust_analyzer = {},
-  ansiblels = {},
-  bashls = {},
-  yamlls = {},
-  cmake = {},
-  docker_compose_language_service = {},
-  dockerls = {},
-  diagnosticls = {},
-  lua_ls = {
-    Lua = {
-      workspace = { checkThirdParty = false },
-      telemetry = { enable = false },
-    },
-  },
-}
-
 -- Setup neovim lua configuration
 require('neodev').setup()
 
@@ -551,16 +533,6 @@ require("oil").setup({
 -- Open oil with Ctrl-B
 vim.keymap.set('n', '<C-b>', function() require("oil").toggle_float() end, {desc = "Open Oil"})
 
--- Setup nvim-tree
-require("nvim-tree").setup({
-  git = {ignore = false},
-  actions = {
-    open_file = {
-      resize_window = false,
-    },
-  },
-})
-
 -- NvimTree config
 vim.keymap.set('n', '<Leader>tt', ":NvimTreeToggle<CR>", {desc = "Open nvim tree"})
 vim.keymap.set('n', '<Leader>tf', ':NvimTreeFindFile<cr>', { desc = "Find current file" })
@@ -569,26 +541,6 @@ vim.keymap.set('n', '<Leader>tf', ':NvimTreeFindFile<cr>', { desc = "Find curren
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-
--- Setup mason so it can manage external tooling
-require('mason').setup()
-
--- Ensure the servers above are installed
-local mason_lspconfig = require 'mason-lspconfig'
-
-mason_lspconfig.setup {
-  ensure_installed = vim.tbl_keys(servers),
-}
-
-mason_lspconfig.setup_handlers {
-  function(server_name)
-    require('lspconfig')[server_name].setup {
-      capabilities = capabilities,
-      on_attach = on_attach,
-      settings = servers[server_name],
-    }
-  end,
-}
 
 -- Setup php
 require("lspconfig").phpactor.setup{}
@@ -631,15 +583,20 @@ cmp.setup {
   sources = {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
+    { name = 'buffer' },
+    { name = 'path' },
   },
 }
 
 require("ibl").setup()
 
 require('lspconfig').clangd.setup {
+  on_attach = on_attach,
 --   cmd = { "docker", "exec",  "-i", "example_container", "clangd", "--compile-commands-dir=/home/wojtek/git_projects/Clangd-Docker-NeoVim/examples/exampleApp/build"}
   --  cmd = {"clangd", "-offset-encoding=utf-16"},
 }
+
+vim.lsp.enable({'clangd'})
 
 -- Default options for theme
 require("gruvbox").setup({
@@ -705,3 +662,41 @@ vim.keymap.set("", "<C-f>", "<Nop>")
 vim.keymap.set("n", "<S-q>", "<Nop>")
 vim.keymap.set("n", "@c", 'gg0^VG$y<C-o>zz', { desc = "Copy file content" })
 vim.keymap.set("n", "@d", 'gg0^VG$dg//^\\s*$/d', { desc = "Delete file content" })
+
+-- Toggle format
+-- A variable to toggle format-on-save
+local format_on_save_enabled = false
+
+-- The command to toggle the formatter
+vim.api.nvim_create_user_command('FormatToggle', function()
+  format_on_save_enabled = not format_on_save_enabled
+  if format_on_save_enabled then
+    vim.notify("Format on save: Enabled", vim.log.levels.INFO)
+  else
+    vim.notify("Format on save: Disabled", vim.log.levels.WARN)
+  end
+end, {})
+
+-- An autocommand group to prevent the autocmd from being duplicated
+local format_augroup = vim.api.nvim_create_augroup("LspFormat", {})
+
+-- The autocmd that will run the formatter before saving
+vim.api.nvim_create_autocmd("BufWritePre", {
+  group = format_augroup,
+  pattern = "*", -- Run on all file types
+  callback = function(ev)
+    -- Only run if the toggle is enabled
+    if not format_on_save_enabled then
+      return
+    end
+
+    -- Check if an LSP client that supports formatting is attached
+    local clients = vim.lsp.get_active_clients({ bufnr = ev.buf })
+    for _, client in ipairs(clients) do
+      if client.supports_method("textDocument/formatting") then
+        vim.lsp.buf.format({ bufnr = ev.buf })
+        return -- Format once and exit
+      end
+    end
+  end,
+})
