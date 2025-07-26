@@ -142,23 +142,6 @@ require('lazy').setup({
     lazy = false,
   },
 
-  -- Rust tools
-  {
-    'simrat39/rust-tools.nvim',
-    config = function()
-      require("rust-tools").setup({
-        server = {
-        on_attach = function(_, bufnr)
-          -- Hover actions
-          vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
-          -- Code action groups
-          vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
-        end,
-        }
-      })
-    end
-  },
-
   -- Theme
   { "ellisonleao/gruvbox.nvim", priority = 1000 , config = true, opts = ...},
 
@@ -394,6 +377,9 @@ require('nvim-treesitter.configs').setup {
 
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = false,
+  sync_install = false,
+  ignore_install = { "" },
+  modules = { },
   highlight = { enable = true },
   indent = { enable = true, disable = { 'python' } },
   incremental_selection = {
@@ -452,8 +438,8 @@ require('nvim-treesitter.configs').setup {
 }
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
+vim.keymap.set('n', '[d', function() vim.diagnostic.jump({count=-1, float=true}) end, { desc = "Go to previous diagnostic message" })
+vim.keymap.set('n', ']d', function() vim.diagnostic.jump({count=1, float=true}) end, { desc = "Go to next diagnostic message" })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
 
@@ -706,9 +692,9 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     end
 
     -- Check if an LSP client that supports formatting is attached
-    local clients = vim.lsp.get_active_clients({ bufnr = ev.buf })
+    local clients = vim.lsp.get_clients()
     for _, client in ipairs(clients) do
-      if client.supports_method("textDocument/formatting") then
+      if client:supports_method("textDocument/formatting") then
         vim.lsp.buf.format({ bufnr = ev.buf })
         return -- Format once and exit
       end
