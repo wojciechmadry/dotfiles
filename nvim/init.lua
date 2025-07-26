@@ -542,9 +542,6 @@ vim.keymap.set('n', '<Leader>tf', ':NvimTreeFindFile<cr>', { desc = "Find curren
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
--- Setup php
-require("lspconfig").phpactor.setup{}
-
 -- nvim-cmp setup
 local cmp = require 'cmp'
 local luasnip = require 'luasnip'
@@ -590,11 +587,29 @@ cmp.setup {
 
 require("ibl").setup()
 
-require('lspconfig').clangd.setup {
-  on_attach = on_attach,
---   cmd = { "docker", "exec",  "-i", "example_container", "clangd", "--compile-commands-dir=/home/wojtek/git_projects/Clangd-Docker-NeoVim/examples/exampleApp/build"}
-  --  cmd = {"clangd", "-offset-encoding=utf-16"},
+-- LSP servers
+local servers = {
+  "clangd",
+  "pyright",
+  "bashls",
+  "rust_analyzer",
+  "lua_ls",
+  "yamlls",
+  "cmake",
 }
+
+for _, lsp in ipairs(servers) do
+  local opts = {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  }
+
+  if lsp == "clangd" then
+    -- opts.cmd = { "docker", "exec",  "-i", "example_container", "clangd", "--compile-commands-dir=/home/wojtek/git_projects/Clangd-Docker-NeoVim/examples/exampleApp/build"}
+  end
+
+  require('lspconfig')[lsp].setup(opts)
+end
 
 vim.lsp.enable({'clangd'})
 
