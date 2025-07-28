@@ -459,8 +459,10 @@ vim.keymap.set('n', '<C-Down>', ":m+1<CR>", {desc = "Move line down"})
 vim.keymap.set('i', '<C-Down>', "<ESC>:m+1<CR>", {desc = "Move line down"})
 
 vim.diagnostic.config({
-  -- Use the default configuration
-  virtual_lines = true
+  virtual_text = true,
+  update_in_insert = false,
+  underline = true,
+  severity_sort = true,
 })
 
 -- LSP settings.
