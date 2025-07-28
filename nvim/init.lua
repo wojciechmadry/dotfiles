@@ -591,13 +591,13 @@ for _, lsp in ipairs(servers) do
   }
 
   if lsp == "clangd" then
-    -- opts.cmd = { "docker", "exec",  "-i", "example_container", "clangd", "--compile-commands-dir=/home/wojtek/git_projects/Clangd-Docker-NeoVim/examples/exampleApp/build"}
+    -- opts.cmd = { "docker", "exec",  "-i", "example_container", "clangd", "--compile-commands-dir=/home/wojtek/git_projects/Clangd-Docker-NeoVim/examples/exampleApp/build", "--background-index", "-j=16"}
   end
 
   require('lspconfig')[lsp].setup(opts)
 end
 
-vim.lsp.enable({'clangd'})
+vim.lsp.enable(servers)
 
 -- Default options for theme
 require("gruvbox").setup({
