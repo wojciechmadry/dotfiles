@@ -74,10 +74,7 @@ require('lazy').setup({
   { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
     dependencies = {
-      { 'j-hui/fidget.nvim', opts = {}, commit = "90c22e47be057562ee9566bad313ad42d622c1d3" },
-
-      -- Additional lua configuration, makes nvim stuff amazing!
-      'folke/neodev.nvim',
+      { 'j-hui/fidget.nvim', opts = {} },
     },
   },
 
@@ -503,9 +500,6 @@ local on_attach = function(_, bufnr)
   end, { desc = 'Format current buffer with LSP' })
 end
 
--- Setup neovim lua configuration
-require('neodev').setup()
-
 -- Setup Oil
 require("oil").setup({
   delete_to_trash = true,
@@ -525,6 +519,8 @@ vim.keymap.set('n', '<C-b>', function() require("oil").toggle_float() end, {desc
 vim.keymap.set('n', '<Leader>tt', ":NvimTreeToggle<CR>", {desc = "Open nvim tree"})
 vim.keymap.set('n', '<Leader>tf', ':NvimTreeFindFile<cr>', { desc = "Find current file" })
 
+-- Clangd switch between source <-> header
+vim.keymap.set('n', 'gs', ':ClangdSwitchSourceHeader<cr>', { desc = "Source <-> Header", silent = true})
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
