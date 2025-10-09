@@ -74,13 +74,21 @@ require('lazy').setup({
   { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
     dependencies = {
-      { 'j-hui/fidget.nvim', opts = {} },
+      {
+        'j-hui/fidget.nvim', opts = {
+          notification = {
+            window = {
+              avoid = { 'NvimTree' },
+            },
+          },
+        }
+      },
     },
   },
 
   { -- Autocompletion
     'hrsh7th/nvim-cmp',
-    dependencies = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
+    dependencies = { 'hrsh7th/cmp-nvim-lsp', {'L3MON4D3/LuaSnip', build = "make install_jsregexp"}, 'saadparwaiz1/cmp_luasnip' },
   },
 
   -- Telescope undo tree
@@ -250,6 +258,12 @@ vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 vim.bo.softtabstop = 2
+
+-- Disable perl
+vim.g.loaded_perl_provider = 0
+
+-- Disable ruby
+vim.g.loaded_ruby_provider = 0
 
 -- [[ Basic Keymaps ]]
 
