@@ -677,6 +677,45 @@ vim.keymap.set("n", "<S-q>", "<Nop>")
 vim.keymap.set("n", "@c", 'gg0^VG$y<C-o>zz', { desc = "Copy file content" })
 vim.keymap.set("n", "@d", 'gg0^VG$dg//^\\s*$/d', { desc = "Delete file content" })
 
+local function toggle_case(text)
+  -- snake_case → camelCase
+  if text:match("^[a-z][a-z0-9]*_[a-z0-9_]+$") then
+    return text:gsub("_([a-z0-9])", function(c) return c:upper() end)
+  end
+
+  -- camelCase → snake_case
+  if text:match("^[a-z][a-z0-9]*[A-Z][a-zA-Z0-9]*$") then
+    return text:gsub("([A-Z])", function(c) return "_" .. c:lower() end)
+  end
+
+  return nil
+end
+
+vim.keymap.set("v", "1", function()
+  -- Save and yank selection into register
+  local saved_reg     = vim.fn.getreg('"')
+  local saved_regtype = vim.fn.getregtype('"')
+  vim.cmd('noau normal! y')
+  local text = vim.fn.getreg('"')
+
+  -- Restore original register
+  vim.fn.setreg('"', saved_reg, saved_regtype)
+
+  local result = toggle_case(text)
+  if result == nil then return end
+
+  -- Use marks (now reliable, since we already yanked)
+  local start_pos = vim.fn.getpos("'<")
+  local end_pos   = vim.fn.getpos("'>")
+
+  vim.api.nvim_buf_set_text(
+    0,
+    start_pos[2] - 1, start_pos[3] - 1,
+    end_pos[2] - 1,   end_pos[3],
+    { result }
+  )
+end, { noremap = true, silent = true })
+
 -- Toggle format
 -- A variable to toggle format-on-save
 local format_on_save_enabled = false
