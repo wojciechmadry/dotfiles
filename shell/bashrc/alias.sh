@@ -17,6 +17,7 @@ alias cl='clear'
 alias here='pwd | thunar'
 alias d='docker'
 alias brightness='cat /sys/class/backlight/amdgpu_bl1/brightness'
+alias enable_printer='sudo systemctl start cups'
 
 # nvim
 alias nb='nvim ~/.bashrc'
