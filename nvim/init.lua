@@ -334,14 +334,19 @@ vim.keymap.set('n', '<Leader>rr',
 -- Print unsaved changes
 vim.keymap.set('n', '<Leader>m', ':vert new | set buftype=nofile | read ++edit # | 0d_ | diffthis | wincmd p | diffthis<cr>', { silent = true, desc = "Show unsaved changes" })
 
--- Print/Copy path of file
 function CopyFilePath()
   local filepath = vim.fn.expand('%:p')
   print(filepath)
   vim.fn.setreg('+', filepath)
 end
+function CopyFileName()
+  local filename = vim.fn.expand('%:t')
+  print(filename)
+  vim.fn.setreg('+', filename)
+end
 vim.keymap.set('n', '<Leader>ff', ":echo expand('%:p')<cr>", { desc = "Show file path"})
 vim.keymap.set('n', '<Leader>fc', CopyFilePath, { desc = "Copy file path"})
+vim.keymap.set('n', '<Leader>fn', CopyFileName, { desc = "Copy file name"})
 
 vim.keymap.set('n', '<Leader>dc', function() require('dap').continue() end, { desc = "Continue" })
 vim.keymap.set('n', '<Leader>do', function() require('dap').step_over() end, { desc = "Step over" })
